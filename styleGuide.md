@@ -18,3 +18,15 @@ this is the back left motor
 this si the fornt right motor
 
 this system should be used on all four drive train motors. All methods that invole theese motors should use thoose names. In both the robot setup on the phone and in the software on the laptop.
+
+on drive traint motors shoudl be names by (funtion)(Mot)
+
+>shootMot
+
+this is the motor that controls the shooting
+
+>lifterMot
+
+this motor controls the lifter
+
+what matters more than the actual name is that the names are constiant bwteen progams By labeling it on to the motor istelf all progammers should use the same name for every motor 
