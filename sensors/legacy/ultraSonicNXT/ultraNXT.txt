@@ -1,0 +1,11 @@
+// Ultra sonic senor is simple
+
+// create this varible at the class leval
+UltrasonicSensor ultrasonicSensor;
+
+//at the runOpmode add this
+ultrasonicSensor = hardwareMap.get(UltrasonicSensor.class, "ultaNxtSense");
+
+//then in the while opmode use this
+// it is a double that outputs the distacne
+ultrasonicSensor.getUltrasonicLevel();
