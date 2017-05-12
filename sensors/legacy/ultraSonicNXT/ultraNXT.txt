@@ -8,4 +8,5 @@ ultrasonicSensor = hardwareMap.get(UltrasonicSensor.class, "ultaNxtSense");
 
 //then in the while opmode use this
 // it is a double that outputs the distacne
+// if you get zero values then add a sleep(100) before reading the data
 ultrasonicSensor.getUltrasonicLevel();
