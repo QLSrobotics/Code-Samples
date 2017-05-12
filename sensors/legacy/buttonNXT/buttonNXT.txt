@@ -1,0 +1,26 @@
+// This sensor is also called as LEGO Touch sensor
+//  https://shop.lego.com/en-US/Touch-Sensor-9843
+
+public class buttonNXT extends LinearOpMode {   // class name should be same as file name. refer to readme to understand why we are extending linearOpMode
+
+  TouchSensor touchNXTsens;  // declaring Variable type and variable name
+
+  @Override
+  public void runOpMode() {   // runOpMode activates the code when you select opMode on driver station foe example void setup on arduino.
+
+    touchNXTsens = hardwareMap.touchSensor.get("touchNXTsens"); //assigning vairable to sensor name we gave in configuration file.
+
+    waitForStart(); // waits untill you press play on driver station
+
+    while (opModeIsActive()) {
+    //loop runs as long as opMode is playing or it is inturupted (different ways of interupting are in LinearOpMode)
+    //Telemetry is the feedback we get on driverstation
+    //First add data to telemetry and update to change it on the screen. It should be inside the loop or it works only once.
+    //.ispressed() method returns boolean. This can be directly used as a condition.
+
+        telemetry.addData("Touch", touchNXTsens.ispressed());
+
+      telemetry.update();
+    }
+  }
+}
