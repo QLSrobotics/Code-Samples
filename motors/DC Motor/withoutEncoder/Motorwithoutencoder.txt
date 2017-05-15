@@ -1,0 +1,24 @@
+# This file is to run Tetrix DcMotor without encoders.
+//http://www.pitsco.com/TETRIX_DC_Gear_Motor
+public class Motorwithoutencoder extends LinearOpMode { // class name should be same as file name. refer to readme to understand why we are extending linearOpMode
+  DcMotor Test1Mot; // Declaring Motor type and assigning a name
+  @Override
+  public void runOpMode() throws IntteruptedException{   // runOpMode activates the code when you select opMode on driver station foe example void setup on arduino.
+    Test1Mot=hardwareMap.dcMotor.get("Test1Mot");//assigning vairable to motor name we gave in configuration file.
+    waitForStart();
+    #other methods that can be used on motors object are
+    #.setDirection(DcMotor.Direction.REVERSE) // When working on drivetrain we can assign directions
+    #.setPower(gamepad1.left_stick_Y)// to give power from remote control
+    #.setPower takes values only from -1 to 1
+    while (opModeIsActive()){
+    //loop runs as long as opMode is playing or it is inturupted (different ways of interupting are in LinearOpMode)
+      while(true){  //Making an infinite loop inside opMode active
+        Test1Mot.setPower(1); //Giving full power to motor.
+      }
+    }
+
+
+
+
+  }
+  }
