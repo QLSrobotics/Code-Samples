@@ -1,0 +1,34 @@
+//On modern robotics website this is called Integrating Gyro
+//http://modernroboticsinc.com/integrating-3-axis-gyro
+
+public class SensorMRGyro extends LinearOpMode {  // class name should be same as file name. refer to readme to understand why we are extending linearOpMode
+  @Override
+  public void runOpMode() throws InterruptedException { // runOpMode activates the code when you select opMode on driver station foe example void setup on arduino.
+    ModernRoboticsI2cGyro gyrosens; // declaring Variable type and variable name
+    int xVal, yVal, zVal = 0;     // Declaring 3 variable for 3 rate of change of angle values
+    gyrosens = (ModernRoboticsI2cGyro)hardwareMap.gyroSensor.get("gyrosens"); // assigning configuration file name to sensor
+
+   // gyro needs to be calibrated before starting
+   telemetry.addData(">", "Gyro Calibrating. Do Not move!");
+   telemetry.update();
+   gyrosens.calibrate(); // .calibrate is the method used to calibrate gyro.
+   //Robot should not move while gyro sensor is being calibrated so use the follwing while loop to not do anything while gyro is being calibrated.
+   while (gyro.isCalibrating())  {
+      Thread.sleep(50); //50 mill seconds
+      idle();
+    }
+    xVal = gyro.rawX(); //To get rate of change of angle in X-direction
+    yVal = gyro.rawY(); //To get rate of change of angle in Y-direction
+    zVal = gyro.rawZ(); //To get rate of change of angle in Z-direction
+    heading = gyro.getHeading();  //heading angle
+    //http://modernroboticsinc.com/Content/Images/uploaded/Sensors/Modern_Robotics_Gryo_Sensor-Steering_Tutorial.pdf
+    angleZ  = gyro.getIntegratedZValue(); // We have to test to know what this does. My assumption is it gives current Z angle.
+    //To print data on phone add data on phone and then update telemetry
+    telemetry.addData("0", "Heading %03d", heading);
+    telemetry.addData("1", "Int. Ang. %03d", angleZ);
+    telemetry.addData("2", "X av. %03d", xVal);
+    telemetry.addData("3", "Y av. %03d", yVal);
+    telemetry.addData("4", "Z av. %03d", zVal);
+    telemetry.update();
+    idle();
+    }
