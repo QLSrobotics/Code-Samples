@@ -1,6 +1,3 @@
-/**
- * Created by William on 5/16/17.
- */
 
 ColorSensor colorSensor;
 
