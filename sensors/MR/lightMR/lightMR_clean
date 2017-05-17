@@ -1,0 +1,17 @@
+OpticalDistanceSensor lightSensor;
+
+  @Override
+  public void runOpMode() {
+
+    lightSensor = hardwareMap.opticalDistanceSensor.get("sensor_light");
+
+    waitForStart();
+
+    while (opModeIsActive()) {
+
+      telemetry.addData("Raw",    odsSensor.getRawLightDetected());
+      telemetry.addData("Normal", odsSensor.getLightDetected());
+
+      telemetry.update();
+    }
+  }
