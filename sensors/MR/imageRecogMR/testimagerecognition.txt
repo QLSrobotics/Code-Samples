@@ -1,0 +1,24 @@
+
+Image processing is done by vuforia software.
+Vuforia uses the phone's camera to inspect it's surroundings, You can use vuforia and
+Program robot to recognize other elements of the game field to aid in autonomous navigation.
+
+Step 1: Register to get a license key here : https://developer.vuforia.com/license-manager
+
+Step 2:  Go to ConceptVuforiaNavigation class which is in FtcRobotController > java > org.firstinspires.ftc.robotcontroller > external.samples
+
+Setp 3: copy and paste the file in team codes, remove disabled line.
+
+Step 4: Copy the license key from developer tab on vuforia website and paste it in test code at "parameters.vuforiaLicenseKey"
+
+Setp 5: Upload and test with the images in doc folder in ftc app_master ,chips and stones should work.
+
+Notes :
+1.  You can use a blank file as configuration files.
+2.  This will give you X,Y,Z axis on the robot controller and position and orientation data on the driver station.
+
+Reference's:
+
+Youtube playlist on how to do it: https://www.youtube.com/watch?v=8fjpgjViSAY&list=PLMQ6o0o7Nw_9-WBWSvgt3BeLDrjVb5hjt
+Step by step instructions : http://codedog.net/2016/09/29/ftc-and-vuforia/
+one more team demo codes : https://github.com/gearsincorg/FTCVuforiaDemo
