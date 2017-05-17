@@ -1,0 +1,23 @@
+OpticalDistanceSensor lightSensor;  // create hardware object.
+
+  @Override
+  public void runOpMode() {
+
+    // get a reference to our Light Sensor object.
+    // the "sensor_light" is the name of the sensor on board the robot.
+    lightSensor = hardwareMap.opticalDistanceSensor.get("sensor_light");
+
+    // wait for the start button to be pressed.
+    waitForStart();
+
+    // while the op mode is active, loop and read the light levels.
+    // Note we use opModeIsActive() as our loop condition because it is an interruptible method.
+    while (opModeIsActive()) {
+
+      // send the info back to driver station.
+      telemetry.addData("Raw",    odsSensor.getRawLightDetected());
+      telemetry.addData("Normal", odsSensor.getLightDetected());
+
+      telemetry.update();
+    }
+  }
