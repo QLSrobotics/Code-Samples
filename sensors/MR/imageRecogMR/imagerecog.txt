@@ -1,0 +1,66 @@
+#For version 2.2
+#https://www.vuforia.com/
+#This code is not currently working - no errors but not recognizing. I would suggest to use only one beacon at a time and also test with color prints
+# for using one beacon i thing we have to train for one beacon.
+
+@TeleOp(name="imagerecog",group="LinearOpMode")
+public class imagerecog extends LinearOpMode{  // class name should be same as file name. refer to readme to understand why we are extending linearOpMode
+
+    @Override
+    public void runOpMode() throws InterruptedException {
+        # telling how we are going to use vuforia in this instance
+        VuforiaLocalizer.Parameters Params= new VuforiaLocalizer.Parameters(R.id.cameraMonitorViewId); This line means show on driverstation what ever camera is seeing.
+        # More about vuforialocalizer here https://ftctechnh.github.io/ftc_app/doc/javadoc/index.html
+        #Next line declares which camera to use front or back
+        Params.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; # using back as it has better resolution
+        #Next line assigns license key refer testimagerecognition.txt to know how to get license key
+        Params.vuforiaLicenseKey = "Enter License key here";
+        #Next line gives you feedback on what should happen when image is recognized.by defalt it will be X,Y,Z axes
+        #You can change this to buildings or teapot ...
+        Params.cameraMonitorFeedback = VuforiaLocalizer.Parameters.CameraMonitorFeedback.AXES;
+
+        # Next initating new instance of vuforia with out parameters
+        VuforiaLocalizer vufoin1= ClassFactory.createVuforiaLocalizer(Params);
+
+        #Next line sets up hints, hints are something you want to look for and if its not supported it wont do, works through excepmtion.
+        Vuforia.setHint(HINT.HINT_MAX_SIMULTANEOUS_IMAGE_TARGETS,4); # we are tracking image targets thats why we selet that.
+        #By default app will only track 1 becon at a time.
+
+        #Next load the images by default given to us during 2016-2017
+        # they are loacated in app at FTC/assets/FTC_2016-17
+        #Do not include  .dat it will give an error saying exception caught
+        VuforiaTrackables beacons= vufoin1.loadTrackablesFromAsset("FTC_2016-17");
+
+        #setting names
+        beacons.get(0).setName("Wheels");
+        beacons.get(1).setName("Tools");
+        beacons.get(2).setName("Lego");
+        beacons.get(3).setName("Gears");
+
+        waitForStart();
+
+        While(opModeIsActive()){
+        # for each loop to get each beacon
+          for (int i=0; i<beacons.size();i++){
+                  VuforiaTrackable beac=beacons.get(i);
+                  #openGL (open graphics lib) loop
+                  #getting pose.No idea what this is yet
+                  OpenGLMatrix pose= ((VuforiaTrackableDefaultListener)beac.getListener()).getPose();
+                  #there is a chance pose is null(if camera doesnt see target) so write exception
+                  if (pose!=null){
+                    VectorF translation= pose.getTranslation();
+                    #Printing what we found
+                    telemetry.addData(beac.getName()+"-Translation",translation);
+                    #to get the nagles robot should turn use math.arc tan to get angle
+                    double degreeToTurn= Math.toDegrees(Math.atan2(translation.get(1),translation.get(0)));
+                    telemetry.addData(beac.getName()+"-Degrees",degreeToTurn);
+                  }
+              }
+              telemetry.update();
+
+        }
+
+
+
+    }
+}
